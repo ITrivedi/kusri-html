@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TestForm</title>
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"> 	
+<style type="text/css">
+body{font-family: 'Poppins', sans-serif; font-size:16px; font-weight:400}
+h3{font-size:24px; font-weight:400; color:#3025b2; margin:0 0 15px; padding:0}
+.custom-radio{width:22px; height:21px; display:inline-block; position:relative; z-index:1; top:5px; background:url("images/radio.png") no-repeat; margin-right:10px}
+.custom-radio:hover{background:url("images/radio-hover.png") no-repeat}
+.custom-radio.selected{background:url("images/radio-selected.png") no-repeat}
+.custom-radio input[type="radio"]{
+margin:0;
+position: absolute;
+z-index: 2;            
+cursor: pointer;
+outline: none;
+opacity: 0;
+/* CSS hacks for older browsers */
+_noFocusLine: expression(this.hideFocus=true); 
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+filter: alpha(opacity=0);
+-khtml-opacity: 0;
+-moz-opacity: 0;
+}
+form{margin:100px}
+label{display:block; padding:0; margin:0 0 15px; color:#333e48}
+
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+    function customRadio(radioName){
+        var radioButton = $('input[name="'+ radioName +'"]');
+        $(radioButton).each(function(){
+            $(this).wrap( "<span class='custom-radio'></span>" );
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(radioButton).click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+            $(radioButton).not(this).each(function(){
+                $(this).parent().removeClass("selected");
+            });
+        });
+    }
+    $(document).ready(function (){
+        customRadio("browser");
+        customRadio("search-engine");            
+        customRadio("confirm");
+    })
+</script>
+</head>
+<body>
+    <form action="/examples/faq/radio-action.php" method="post">
+        <h3>1. What is your status?</h3>
+        <label><input type="radio" name="browser" value="fulltime-employee">Full-time employee</label>
+        <label><input type="radio" name="browser" value="student" checked>Student</label>
+        <label><input type="radio" name="browser" value="retiree">Retiree</label>  
+
+    </form>
+</body>
+</html>                                                  
